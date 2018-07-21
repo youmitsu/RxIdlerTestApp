@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">RxIdlerTestApp</string>
 
-    <string name="get_prefecture">都道府県を取得</string>
+    <string name="blank">データがありません</string>
+    <string name="get">取得</string>
 </resources>
