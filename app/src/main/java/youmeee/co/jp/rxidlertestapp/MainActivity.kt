@@ -15,12 +15,7 @@ class MainActivity : AppCompatActivity() {
             "second",
             "third",
             "fourth",
-            "fifth",
-            "sixth",
-            "seventh",
-            "eighth",
-            "ninth",
-            "tenth")
+            "fifth")
 
     private val mainRepository: MainRepository = MainRepository()
 
@@ -42,11 +37,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.get_btn -> {
+                loading.visibility = View.VISIBLE
+                blank_str.visibility = View.GONE
                 val flowable: Flowable<List<String>> = mainRepository.getObservable(data)
                 flowable.subscribe({ e ->
                     recyclerAdapter.data = e
                     recycler_view.visibility = View.VISIBLE
-                    blank_str.visibility = View.GONE
+                    loading.visibility = View.GONE
                 })
             }
         }

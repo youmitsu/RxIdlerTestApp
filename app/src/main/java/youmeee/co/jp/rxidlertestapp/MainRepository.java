@@ -15,7 +15,7 @@ public class MainRepository {
 
     public Flowable<List<String>> getObservable(List<String> list) {
         return Flowable.just(list)
-                .concatMap(d -> Flowable.just(d).delay(2000L, TimeUnit.MILLISECONDS))
+                .delay(10000L, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
