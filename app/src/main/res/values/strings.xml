@@ -3,4 +3,7 @@
 
     <string name="blank">データがありません</string>
     <string name="get">取得</string>
+    <string name="error">エラーが発生しました</string>
+
+    <string name="base_url">https://us-central1-trelloburndownproject.cloudfunctions.net/</string>
 </resources>

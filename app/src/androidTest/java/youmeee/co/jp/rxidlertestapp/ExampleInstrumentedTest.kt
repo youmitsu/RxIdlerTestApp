@@ -43,6 +43,7 @@ class ExampleInstrumentedTest {
         //取得ボタンを押下
         onView(withText(context.getString(R.string.get)))
                 .perform(ViewActions.click())
+                .check(matches(isDisplayed()))
 
         //待たない
         assertListText("first")
@@ -61,9 +62,10 @@ class ExampleInstrumentedTest {
         //取得ボタンを押下
         onView(withText(context.getString(R.string.get)))
                 .perform(ViewActions.click())
+                .check(matches(isDisplayed()))
 
         //だいたいこれくらい待てば表示されてるでしょっていう時間待つ(3秒待つ)
-        Thread.sleep(3000)
+        Thread.sleep(10000)
 
         assertListText("first")
         assertListText("second")
@@ -73,7 +75,7 @@ class ExampleInstrumentedTest {
     }
 
     private fun assertListText(text: String) {
-        onView(withText(text)).check(matches(isDisplayed()))
+        onView(withText(text)).check(matches(isDisplayed())).perform(ViewActions.click())
     }
 
 }

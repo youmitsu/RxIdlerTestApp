@@ -1,11 +1,13 @@
 package youmeee.co.jp.rxidlertestapp;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Observable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import youmeee.co.jp.rxidlertestapp.net.ApiClient;
+import youmeee.co.jp.rxidlertestapp.net.ResponseBody;
 
 /**
  * Created by yumitsuhori on 2018/07/22.
@@ -13,10 +15,29 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainRepository {
 
-    public Flowable<List<String>> getObservable(List<String> list) {
-        return Flowable.just(list)
-                .delay(10000L, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    ApiClient apiClient;
+
+    public Observable<List<String>> getObservableData() {
+        return Observable.create(e -> {
+            Call<ResponseBody> call = apiClient.getData();
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    e.onNext(response.body().getResult());
+                    e.onComplete();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    e.onError(t);
+                    e.onComplete();
+                }
+            });
+        });
     }
+
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
 }

@@ -19,6 +19,16 @@
         android:layout_centerVertical="true"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/error_bar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/gray"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/error"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
