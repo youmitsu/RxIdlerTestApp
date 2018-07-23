@@ -3,7 +3,6 @@ package youmeee.co.jp.rxidlertestapp
 import android.content.Context
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.filters.LargeTest
@@ -36,22 +35,22 @@ class RxIdlerInstrumentedTest {
         context = InstrumentationRegistry.getTargetContext()
 
         //以下を記述
-        RxJavaPlugins.setInitComputationSchedulerHandler(
-                Rx2Idler.create("RxJava 2.x Computation Scheduler")
+        RxJavaPlugins.setInitIoSchedulerHandler(
+                Rx2Idler.create("RxJava 2.x Io Scheduler")
         )
     }
 
     @Test
     fun testRxIdler() {
 
-        //初期状態の確認(データがありません)
-        Espresso.onView(ViewMatchers.withId(R.id.blank_str))
-                .check(ViewAssertions.matches(ViewMatchers.withText(context.getString(R.string.blank))))
-
-        //取得ボタンを押下
-        Espresso.onView(ViewMatchers.withText(context.getString(R.string.get)))
-                .perform(ViewActions.click())
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        //初期状態の確認(データがありません)
+//        Espresso.onView(ViewMatchers.withId(R.id.blank_str))
+//                .check(ViewAssertions.matches(ViewMatchers.withText(context.getString(R.string.blank))))
+//
+//        //取得ボタンを押下
+//        Espresso.onView(ViewMatchers.withText(context.getString(R.string.get)))
+//                .perform(ViewActions.click())
+//                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
         //待たなくても大丈夫
         assertListText("first")

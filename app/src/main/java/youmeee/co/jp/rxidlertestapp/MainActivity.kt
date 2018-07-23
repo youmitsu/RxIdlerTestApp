@@ -34,6 +34,22 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
+
+        loading.visibility = View.VISIBLE
+        blank_str.visibility = View.GONE
+        mainRepository.observableData
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data ->
+                    recyclerAdapter.data = data
+                    recycler_view.visibility = View.VISIBLE
+                    loading.visibility = View.GONE
+                    error_bar.visibility = View.GONE
+                }, { err ->
+                    error_bar.visibility = View.VISIBLE
+                    recycler_view.visibility = View.GONE
+                    loading.visibility = View.GONE
+                }, {})
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,21 +60,21 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.get_btn -> {
-                loading.visibility = View.VISIBLE
-                blank_str.visibility = View.GONE
-                mainRepository.observableData
-                        .subscribeOn(Schedulers.computation())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ data ->
-                            recyclerAdapter.data = data
-                            recycler_view.visibility = View.VISIBLE
-                            loading.visibility = View.GONE
-                            error_bar.visibility = View.GONE
-                        }, { err ->
-                            error_bar.visibility = View.VISIBLE
-                            recycler_view.visibility = View.GONE
-                            loading.visibility = View.GONE
-                        }, {})
+//                loading.visibility = View.VISIBLE
+//                blank_str.visibility = View.GONE
+//                mainRepository.observableData
+//                        .subscribeOn(Schedulers.computation())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe({ data ->
+//                            recyclerAdapter.data = data
+//                            recycler_view.visibility = View.VISIBLE
+//                            loading.visibility = View.GONE
+//                            error_bar.visibility = View.GONE
+//                        }, { err ->
+//                            error_bar.visibility = View.VISIBLE
+//                            recycler_view.visibility = View.GONE
+//                            loading.visibility = View.GONE
+//                        }, {})
             }
         }
         return super.onOptionsItemSelected(item)

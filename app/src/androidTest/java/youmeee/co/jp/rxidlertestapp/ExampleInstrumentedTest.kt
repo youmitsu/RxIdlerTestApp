@@ -5,7 +5,8 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
@@ -36,14 +37,6 @@ class ExampleInstrumentedTest {
 
     @Test
     fun testNotWaitFailed() {
-        //初期状態の確認(データがありません)
-        onView(withId(R.id.blank_str))
-                .check(matches(withText(context.getString(R.string.blank))))
-
-        //取得ボタンを押下
-        onView(withText(context.getString(R.string.get)))
-                .perform(ViewActions.click())
-                .check(matches(isDisplayed()))
 
         //待たない
         assertListText("first")
@@ -55,17 +48,9 @@ class ExampleInstrumentedTest {
 
     @Test
     fun testSleep() {
-        //初期状態の確認(データがありません)
-        onView(withId(R.id.blank_str))
-                .check(matches(withText(context.getString(R.string.blank))))
-
-        //取得ボタンを押下
-        onView(withText(context.getString(R.string.get)))
-                .perform(ViewActions.click())
-                .check(matches(isDisplayed()))
 
         //だいたいこれくらい待てば表示されてるでしょっていう時間待つ(3秒待つ)
-        Thread.sleep(10000)
+        Thread.sleep(3000)
 
         assertListText("first")
         assertListText("second")
